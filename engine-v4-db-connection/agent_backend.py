@@ -40,8 +40,20 @@ graph.add_edge("chat_node", END)
 chatbot = graph.compile(checkpointer=check_pointer)
 
 thread_id = "1"
+user_id = "1"
 
 config = {'configurable': {"thread_id": thread_id}}
+
+# get state
+# state = chatbot.get_state(
+#             {"configurable": {"thread_id": "1"}}
+#         )
+
+# set thread_id and user_id to the state
+# state["thread_id"] = thread_id
+# state["user_id"] = user_id
+
+# print("state: ", state)
 
 # print all the history/checkpoints
 history = chatbot.get_state_history(config)

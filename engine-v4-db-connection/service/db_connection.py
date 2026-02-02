@@ -1,9 +1,10 @@
-import os
-from configuration.postgress_config import get_postgres_db_config
 import psycopg2
+import os, sys
+from configuration.postgress_config import get_postgres_db_config
 
-# get db connection
-def get_db_connection():
+# execute db connection + operation
+def db_executed(operation, sql = None, values = None):
+    conn = None
     db_config = get_postgres_db_config()
 
     #  get db values
@@ -13,10 +14,7 @@ def get_db_connection():
     user = db_config["user"]
     password = db_config["password"]
 
-    # all_db_config = f"host={host} port={port} dbname={database} user={user} password={password}"
-
     try:
-        # create a connection to the database
         conn = psycopg2.connect(
             host=host,
             port=port,
@@ -26,28 +24,23 @@ def get_db_connection():
         )
         print("Connection to the database established successfully.")
 
+        #3 create a cursor object
         cursor = conn.cursor()
 
-        
-        print("Cursor created successfully.")
+        if operation == "insert":
+            cursor = conn.cursor()
+            cursor.execute(sql, values)   # ← THIS prevents SQL injection
+            conn.commit()
+            print("Record inserted successfully")
 
-        return conn, cursor
 
     except Exception as e:
         print(f"An error occurred while connecting to the database: {e}")
-    
-
-    
-# close db connection
-def close_db_connection(conn, cursor):
-    try:
+    finally:
         if cursor:
             cursor.close()
+            print("Database cursor closed.")
+
         if conn:
             conn.close()
-        print("Database connection closed.")
-    except Exception as e:
-        print(f"An error occurred while closing the database connection: {e}")
-
-
-    
+            print("Database connection closed.")    

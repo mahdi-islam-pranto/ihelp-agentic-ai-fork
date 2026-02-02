@@ -1,5 +1,5 @@
 import streamlit as st
-from agent_backend import chatbot
+from agent_backend import chatbot, thread_id, user_id
 from langchain_core.messages import HumanMessage, SystemMessage
 
 st.title("Ask me anything")
@@ -25,8 +25,13 @@ for message in st.session_state["message_history"]:
 # very first invoke for showing greeting on first load
 if "initialized" not in st.session_state:
     response = chatbot.invoke(
-        {"messages": [], "track_stage": ""},
-        config={"configurable": {"thread_id": "1"}}
+
+        {"messages": [], 
+        "track_stage": "",
+        "thread_id": thread_id,
+        "user_id": user_id
+         },
+        config={"configurable": {"thread_id": thread_id}}
     )
 
     print("first invoke")
@@ -50,7 +55,7 @@ if user_input:
         st.text(user_input)
 
 
-    thread_id = "1"
+    # thread_id = "1"
 
     config = {'configurable': {"thread_id": thread_id}}
 
@@ -67,6 +72,6 @@ if user_input:
     # show checkpointer memory
     with st.expander("LangGraph Memory"):
         state = chatbot.get_state(
-            {"configurable": {"thread_id": "1"}}
+            {"configurable": {"thread_id": thread_id}}
         )
         st.json(state.values)

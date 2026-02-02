@@ -4,7 +4,6 @@ from service.stage import fetch_stage
 # get db connection
 conn, cursor = get_db_connection()
 
-
 # execute a query
 fetch_stage(cursor, conn)
 
