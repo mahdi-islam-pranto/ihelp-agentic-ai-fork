@@ -17,3 +17,6 @@ def create_faiss_vectorstore(documents):
     # save the vectorstore
     vectorstore.save_local(DB_FAISS_PATH)
     return vectorstore
+
+
+# load the vectorstore

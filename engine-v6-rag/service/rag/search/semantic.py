@@ -1,9 +1,7 @@
 
 
 def semantic_retriever(vectorstore, query, k=5):
-    retriever = vectorstore.as_retriever(
-        search_type="similarity",
-        search_kwargs={"k": k}
-    )
+    docs = vectorstore.similarity_search(query, k=k)
+    results = [f"{doc.metadata['name']} {doc.metadata['department']}" for doc in docs]
 
-    return retriever.get_relevant_documents(query)
+    return results
