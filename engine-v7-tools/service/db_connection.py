@@ -33,6 +33,11 @@ def db_executed(operation, sql = None, values = None):
             conn.commit()
             # print("Record inserted successfully")
 
+        elif operation == "select":
+            cursor.execute(sql, values)
+            rows = cursor.fetchall()
+            return rows
+
 
     except Exception as e:
         print(f"An error occurred while connecting to the database: {e}")
