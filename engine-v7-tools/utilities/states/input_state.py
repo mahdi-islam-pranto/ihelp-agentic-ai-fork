@@ -16,3 +16,4 @@ class ChatState(TypedDict):
     name: str
     age: str
     dob: str
+    phone_number: str

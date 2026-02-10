@@ -56,5 +56,5 @@ ORDER BY d.name, s.day_of_week;
     # return the message
     return {
         "messages": [AI_response_time_slot],
-        "track_stage": "4"
+        "track_stage": "appointment_confirmation"
     }
