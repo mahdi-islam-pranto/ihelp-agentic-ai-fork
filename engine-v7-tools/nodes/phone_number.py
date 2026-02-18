@@ -17,11 +17,11 @@ def phone_number(state: ChatState):
     # check if the phone number is valid
     if phone_number == "Unknown":
         return {
-            "messages": ["I'm sorry, I didn't get your phone number. Please tell me your phone number again."],
+            "messages": ["I'm sorry, I think you did not provide a valid phone number. Please tell me your phone number again."],
             "track_stage": "4"
         }
     
-
+    
     # if number is valid
     return {
         "messages": ["Thank you for sharing your phone number. I have all the information I need. I have scheduled the appointment for you. Thank you for using our service."],
